@@ -7,14 +7,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class logo_activity extends AppCompatActivity {
-    int[] logo_l1={R.drawable.facebook,R.drawable.starbucks,R.drawable.intel,R.drawable.audi,
-            R.drawable.barbie,R.drawable.dropbox,R.drawable.adidas,R.drawable.louis_vuitton,R.drawable.mcdonalds,
-            R.drawable.mercedes,R.drawable.nbc,R.drawable.pizzahut,R.drawable.redbull,R.drawable.shell,
-            R.drawable.toyota,R.drawable.twitter,R.drawable.visa,R.drawable.volkswagen,R.drawable.wikipedia,};
+//    int[] logo_l1={R.drawable.facebook,R.drawable.starbucks,R.drawable.intel,R.drawable.audi,
+//            R.drawable.barbie,R.drawable.dropbox,R.drawable.adidas,R.drawable.louis_vuitton,R.drawable.mcdonalds,
+//            R.drawable.mercedes,R.drawable.nbc,R.drawable.pizzahut,R.drawable.redbull,R.drawable.shell,
+//            R.drawable.toyota,R.drawable.twitter,R.drawable.visa,R.drawable.volkswagen,R.drawable.wikipedia,};
     RecyclerView recyclerView;
     Logo_Adapter logo_adapter;
     TextView levelnum;
+    int numOfImage;
+    ArrayList<String> imgList=new ArrayList<>();
     String[] levels;
     int pos;
 
@@ -23,11 +30,22 @@ public class logo_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
         recyclerView=findViewById(R.id.gridview);
-        logo_adapter=new Logo_Adapter(this,logo_l1);
+        String[] images = new String[0];
+        try {
+            images = getAssets().list("pre_logo");
+            imgList = new ArrayList<String>(Arrays.asList(images));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        logo_adapter=new Logo_Adapter(this,imgList);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(logo_activity.this,3);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(logo_adapter);
+
+
+
+
 
         levelnum=findViewById(R.id.levelnum);
         pos=getIntent().getIntExtra("pos",0);

@@ -2,22 +2,26 @@ package com.example.logo_quiz;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
 public class Logo_Adapter extends RecyclerView.Adapter<Logo_Adapter.View_holder> {
     Context context;
-    int[] logos_l1;
+    List<String> imgList;
 
-    public Logo_Adapter(Context context, int[] logo_l1) {
+    public Logo_Adapter(Context context, List<String> imgList) {
         this.context=context;
-        this.logos_l1=logo_l1;
+        this.imgList=imgList;
     }
 
     @NonNull
@@ -30,7 +34,20 @@ public class Logo_Adapter extends RecyclerView.Adapter<Logo_Adapter.View_holder>
 
     @Override
     public void onBindViewHolder(@NonNull View_holder holder, int position) {
-        holder.logo.setImageResource(logos_l1[position]);
+        int pos=position;
+        InputStream inputstream = null;
+        try
+        {
+            inputstream = context.getAssets().open("pre_logo/"+imgList.get(pos));
+            System.out.println("No of Images="+imgList.size());
+            System.out.println("imgList Position="+imgList.get(position));
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        Drawable drawable = Drawable.createFromStream(inputstream, null);
+        holder.logo.setImageDrawable(drawable);
         holder.logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +61,7 @@ public class Logo_Adapter extends RecyclerView.Adapter<Logo_Adapter.View_holder>
 
     @Override
     public int getItemCount() {
-        return logos_l1.length;
+        return imgList.size();
     }
 
     public class View_holder extends RecyclerView.ViewHolder {

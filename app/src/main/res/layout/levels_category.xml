@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:text="level"
         android:textSize="20dp"
+        android:textColor="@color/black"
         android:id="@+id/leveltxt"
         android:layout_marginTop="40dp"
         android:textStyle="bold"/>
