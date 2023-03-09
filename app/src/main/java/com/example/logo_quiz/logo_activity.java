@@ -43,10 +43,6 @@ public class logo_activity extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(logo_adapter);
 
-
-
-
-
         levelnum=findViewById(R.id.levelnum);
         pos=getIntent().getIntExtra("pos",0);
         levels=getIntent().getStringArrayExtra("Levels");
