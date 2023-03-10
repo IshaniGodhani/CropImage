@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class Quiz_Adapter extends PagerAdapter {
     ArrayList<String> imgList;
+    ImageView imageView;
     Context context;
     Button[] button = new Button[16];
     String[] ansarr;
@@ -25,7 +26,7 @@ public class Quiz_Adapter extends PagerAdapter {
     char ans_chararr[];
     ArrayList arrayList = new ArrayList<>();
     int pos=0;
-    public static int p=0;
+
     SharedPreferences sharedPreferences;
 
     public Quiz_Adapter(Context context, ArrayList<String> imgList) {
@@ -48,9 +49,9 @@ public class Quiz_Adapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(context).inflate(R.layout.logo_img, container, false);
-        ImageView imageView = view.findViewById(R.id.logo_img);
-        pos=position;
+        View view = LayoutInflater.from(context).inflate(R.layout.logo_imgitem, container, false);
+        imageView = view.findViewById(R.id.logo_img);
+        int pos=position;
         InputStream inputstream = null;
         try
         {
@@ -65,7 +66,7 @@ public class Quiz_Adapter extends PagerAdapter {
         Drawable drawable = Drawable.createFromStream(inputstream, null);
         imageView.setImageDrawable(drawable);
 
-            container.addView(view);
+        container.addView(view);
         return view;
     }
 

@@ -25,7 +25,8 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
     ImageView imageView,cancel,remove,back,next;
     int pos=0;
     Button[] ans_btn=new Button[4];
-    Button[] btn=new Button[14];
+    Button[] bt=new Button[14];
+    Button btn0,btn1,btn2;
     String temp,temp1;
     ArrayList arrayList=new ArrayList();
     LinearLayout linearLayout;
@@ -39,7 +40,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
     Quiz_Adapter quiz_adapter;
     ViewPager viewPager;
     ArrayList<String> ansList=new ArrayList<>();
-
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +51,19 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         remove=findViewById(R.id.remove_btn);
         viewPager=findViewById(R.id.viewpage);
 
-//            for(int i=0;i< ans_btn.length;i++)
-//            {
-//                int id=getResources().getIdentifier("btn"+i,"id",getPackageName());
-//                ans_btn[i]=findViewById(id);
-//
-//            }
+        for(int i=0;i< bt.length;i++)
+        {
+            id=getResources().getIdentifier("button"+i,"id",getPackageName());
+            bt[i]=findViewById(id);
+
+        }
+
+//        btn0=findViewById(R.id.btn0);
+//        btn1=findViewById(R.id.btn1);
+//        btn2=findViewById(R.id.btn2);
+//        btn0.setText("0");
+//        btn1.setText("1");
+//        btn2.setText("2");
 
 
 
@@ -137,11 +145,11 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         back=findViewById(R.id.back_img);
         next=findViewById(R.id.next_img);
 
-        for(int i=0;i<btn.length;i++)
-        {
-            int id=getResources().getIdentifier("btn"+i,"id",getPackageName());
-            btn[i]=findViewById(id);
-        }
+//        for(int i=0;i<btn.length;i++)
+//        {
+//            int id=getResources().getIdentifier("btn"+i,"id",getPackageName());
+//            btn[i]=findViewById(id);
+//        }
 
         ans_arr=imgList.get(pos).split("\\.");
         ans=ans_arr[0];
@@ -153,17 +161,17 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         {
             arrayList.add(ans_charr[i]);
         }
-        for(int i=0;i<btn.length-ans.length();i++)
+        for(int i=0;i<bt.length-ans.length();i++)
         {
             Random random=new Random();
             char c=(char)(random.nextInt(26)+'a');
             arrayList.add(""+c);
         }
         Collections.shuffle(arrayList);
-        for(int i=0;i<btn.length;i++)
+        for(int i=0;i<bt.length;i++)
         {
-            btn[i].setText(""+arrayList.get(i));
-            btn[i].setOnClickListener(this);
+            bt[i].setText(""+arrayList.get(i));
+            bt[i].setOnClickListener(this);
         }
         arrayList.clear();
 
@@ -172,22 +180,21 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        for (int i=0;i< btn.length;i++)
+        for (int i=0;i< bt.length;i++)
         {
-            if (btn[i].getId()==view.getId())
+            if (bt[i].getId()==view.getId())
             {
-                if (!btn[i].getText().toString().isEmpty())
+                if (!bt[i].getText().toString().isEmpty())
                 {
                     if (p<ans.length())
                     {
-                        ans_btn[p].setText(btn[i].getText());
-                        btn[i].setText("");
+                        ans_btn[p].setText(bt[i].getText());
+                        bt[i].setText("");
                         p++;
                     }
                 }
             }
         }
-
 
     }
 }
