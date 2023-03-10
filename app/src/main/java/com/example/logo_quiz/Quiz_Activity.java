@@ -1,8 +1,10 @@
 package com.example.logo_quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Quiz_Activity extends AppCompatActivity implements View.OnClickListener {
-    ImageView pre_logo,back,next,cancel,remove;
+    ImageView imageView,cancel,remove,back,next;
     int pos=0;
     Button[] ans_btn=new Button[4];
     Button[] btn=new Button[14];
@@ -32,25 +34,28 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
     char[] ans_charr;
     int p=0;
     ArrayList<String> imgList=new ArrayList<>();
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    Quiz_Adapter quiz_adapter;
+    ViewPager viewPager;
+    ArrayList<String> ansList=new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        pre_logo=findViewById(R.id.logo_img);
-        back=findViewById(R.id.back_img);
-        next=findViewById(R.id.next_img);
         linearLayout=findViewById(R.id.linear);
         cancel=findViewById(R.id.cancel_btn);
         remove=findViewById(R.id.remove_btn);
+        viewPager=findViewById(R.id.viewpage);
 
-            for(int i=0;i< ans_btn.length;i++)
-            {
-                int id=getResources().getIdentifier("btn"+i,"id",getPackageName());
-                ans_btn[i]=findViewById(id);
-
-            }
+//            for(int i=0;i< ans_btn.length;i++)
+//            {
+//                int id=getResources().getIdentifier("btn"+i,"id",getPackageName());
+//                ans_btn[i]=findViewById(id);
+//
+//            }
 
 
 
@@ -66,19 +71,39 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        InputStream inputstream = null;
-        try
-        {
-            inputstream = getAssets().open("pre_logo/"+imgList.get(pos++));
-            System.out.println("No of Images="+imgList.size());
-            System.out.println("imgList Position="+imgList.get(pos++));
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-        Drawable drawable = Drawable.createFromStream(inputstream, null);
-        pre_logo.setImageDrawable(drawable);
+//        InputStream inputstream = null;
+//        try
+//        {
+//            inputstream = getAssets().open("pre_logo/"+imgList.get(pos++));
+//            System.out.println("No of Images="+imgList.size());
+//            System.out.println("imgList Position="+imgList.get(pos++));
+//        }
+//        catch (IOException e)
+//        {
+//            throw new RuntimeException(e);
+//        }
+
+        quiz_adapter=new Quiz_Adapter(this,imgList);
+        viewPager.setAdapter(quiz_adapter);
+        create(0);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                    create(position);
+                    p=0;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
 
 
@@ -103,21 +128,27 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
 
 
     }
-    void create(int position)
+    private void create(int position)
     {
         pos=position;
         arrayList.clear();
         linearLayout.removeAllViews();
-        ans_arr=imgList.get(pos).split("\\.");
-        ans=ans_arr[0];
-        ans_btn=new Button[ans.length()];
-        ans_charr=ans.toCharArray();
+        imageView=findViewById(R.id.logo_img);
+        back=findViewById(R.id.back_img);
+        next=findViewById(R.id.next_img);
 
         for(int i=0;i<btn.length;i++)
         {
             int id=getResources().getIdentifier("btn"+i,"id",getPackageName());
             btn[i]=findViewById(id);
         }
+
+        ans_arr=imgList.get(pos).split("\\.");
+        ans=ans_arr[0];
+        ans_btn=new Button[ans.length()];
+        ans_charr=ans.toCharArray();
+
+
         for (int i=0;i<ans.length();i++)
         {
             arrayList.add(ans_charr[i]);
@@ -135,6 +166,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
             btn[i].setOnClickListener(this);
         }
         arrayList.clear();
+
 
     }
 
@@ -155,5 +187,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
                 }
             }
         }
+
+
     }
 }

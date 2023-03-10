@@ -38,36 +38,10 @@
             android:layout_marginStart="60dp"
             />
     </LinearLayout>
-    <LinearLayout
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/arrow_left"
-            android:layout_gravity="center"
-            android:id="@+id/back_img"
-            android:layout_marginEnd="60dp"/>
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/logo_img"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_gravity="center"/>
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/arrow_right"
-            android:layout_gravity="center"
-            android:id="@+id/next_img"
-            android:layout_marginStart="70dp"/>
-    </LinearLayout>
+        android:id="@+id/viewpage"
+        android:layout_height="200dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
