@@ -22,8 +22,8 @@ public class Quiz_Adapter extends PagerAdapter {
     Context context;
     Button[] button = new Button[16];
     String[] ansarr;
-    String finalans;
-    char ans_chararr[];
+    String ans;
+    char ans_charr[];
     ArrayList arrayList = new ArrayList<>();
     int pos=0;
 
@@ -51,10 +51,9 @@ public class Quiz_Adapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.logo_imgitem, container, false);
         imageView = view.findViewById(R.id.logo_img);
-        String str=preferences.getString("matched"+position,"false");
+        String str=sharedPreferences.getString("matched"+position,"false");
         int pos=position;
         InputStream inputstream = null;
-        if(str.equals("false")) {
 
             try {
                 inputstream = context.getAssets().open("pre_logo/" + imgList.get(position));
@@ -63,20 +62,9 @@ public class Quiz_Adapter extends PagerAdapter {
             }
             Drawable drawable = Drawable.createFromStream(inputstream, null);
             imageView.setImageDrawable(drawable);
-        }
-        else if(str.equals("true"))
-        {
-            try {
-                inputstream = context.getAssets().open("post_logo/" + imgList.get(position));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            Drawable drawable = Drawable.createFromStream(inputstream, null);
-            imageView.setImageDrawable(drawable);
-        }
 
+            container.addView(view);
 
-        container.addView(view);
         return view;
     }
 
