@@ -51,20 +51,30 @@ public class Quiz_Adapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.logo_imgitem, container, false);
         imageView = view.findViewById(R.id.logo_img);
+        String str=preferences.getString("matched"+position,"false");
         int pos=position;
         InputStream inputstream = null;
-        try
-        {
-            inputstream = context.getAssets().open("pre_logo/"+imgList.get(pos));
-            System.out.println("No of Images="+imgList.size());
-            System.out.println("imgList Position="+imgList.get(position));
+        if(str.equals("false")) {
+
+            try {
+                inputstream = context.getAssets().open("pre_logo/" + imgList.get(position));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            Drawable drawable = Drawable.createFromStream(inputstream, null);
+            imageView.setImageDrawable(drawable);
         }
-        catch (IOException e)
+        else if(str.equals("true"))
         {
-            throw new RuntimeException(e);
+            try {
+                inputstream = context.getAssets().open("post_logo/" + imgList.get(position));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            Drawable drawable = Drawable.createFromStream(inputstream, null);
+            imageView.setImageDrawable(drawable);
         }
-        Drawable drawable = Drawable.createFromStream(inputstream, null);
-        imageView.setImageDrawable(drawable);
+
 
         container.addView(view);
         return view;

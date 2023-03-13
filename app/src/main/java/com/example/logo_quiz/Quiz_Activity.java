@@ -145,11 +145,6 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         back=findViewById(R.id.back_img);
         next=findViewById(R.id.next_img);
 
-//        for(int i=0;i<btn.length;i++)
-//        {
-//            int id=getResources().getIdentifier("btn"+i,"id",getPackageName());
-//            btn[i]=findViewById(id);
-//        }
 
         ans_arr=imgList.get(pos).split("\\.");
         ans=ans_arr[0];
@@ -173,7 +168,14 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
             bt[i].setText(""+arrayList.get(i));
             bt[i].setOnClickListener(this);
         }
-        arrayList.clear();
+        for (int i = 0; i <ans.length(); i++) {
+            ans_button[i] = new Button(MainActivity.this);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+            layoutParams.setMargins(5, 5, 5, 5);
+            ans_button[i].setLayoutParams(layoutParams);
+            ans_button[i].setBackgroundColor(getResources().getColor(R.color.purple_200));
+            linearLayout.addView(ans_button[i]);
+        }
 
 
     }
@@ -194,6 +196,20 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
                     }
                 }
             }
+        }
+        String ans=String.valueOf(ans_button);
+        preferences=getSharedPreferences("myPref",MODE_PRIVATE);
+        editor=preferences.edit();
+        if (ans.equals(finalans)) {
+            editor.putString("matched"+pos,"true");
+            editor.commit();
+
+        }
+        else if(!ans.equals(finalans))
+        {
+            editor.putString("matched"+pos,"false");
+            editor.commit();
+
         }
 
     }
