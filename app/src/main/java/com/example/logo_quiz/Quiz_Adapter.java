@@ -55,6 +55,8 @@ public class Quiz_Adapter extends PagerAdapter {
         int pos=position;
         InputStream inputstream = null;
 
+        if(str.equals("false")) {
+
             try {
                 inputstream = context.getAssets().open("pre_logo/" + imgList.get(position));
             } catch (IOException ex) {
@@ -62,6 +64,17 @@ public class Quiz_Adapter extends PagerAdapter {
             }
             Drawable drawable = Drawable.createFromStream(inputstream, null);
             imageView.setImageDrawable(drawable);
+        }
+        else if(str.equals("true"))
+        {
+            try {
+                inputstream = context.getAssets().open("post_logo/" + imgList.get(position));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            Drawable drawable = Drawable.createFromStream(inputstream, null);
+            imageView.setImageDrawable(drawable);
+        }
 
             container.addView(view);
 

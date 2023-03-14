@@ -40,6 +40,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
     Quiz_Adapter quiz_adapter;
     ViewPager viewPager;
     ArrayList<String> ansList=new ArrayList<>();
+
     int id;
 
     @Override
@@ -57,15 +58,6 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
             bt[i]=findViewById(id);
         }
 
-//        btn0=findViewById(R.id.btn0);
-//        btn1=findViewById(R.id.btn1);
-//        btn2=findViewById(R.id.btn2);
-//        btn0.setText("0");
-//        btn1.setText("1");
-//        btn2.setText("2");
-
-
-
         String[] images = new String[0];
         try {
             images = getAssets().list("pre_logo");
@@ -78,21 +70,9 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-//        InputStream inputstream = null;
-//        try
-//        {
-//            inputstream = getAssets().open("pre_logo/"+imgList.get(pos++));
-//            System.out.println("No of Images="+imgList.size());
-//            System.out.println("imgList Position="+imgList.get(pos++));
-//        }
-//        catch (IOException e)
-//        {
-//            throw new RuntimeException(e);
-//        }
-
         quiz_adapter=new Quiz_Adapter(this,imgList);
         viewPager.setAdapter(quiz_adapter);
-         create(0);
+         create(p);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
