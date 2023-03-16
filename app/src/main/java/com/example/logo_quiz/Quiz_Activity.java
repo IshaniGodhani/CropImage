@@ -27,6 +27,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
     Button[] ans_btn;
     Button[] bt=new Button[14];
     Button btn0,btn1,btn2;
+    int index;
     String temp,temp1;
     ArrayList arrayList=new ArrayList();
     LinearLayout linearLayout;
@@ -38,6 +39,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     Quiz_Adapter quiz_adapter;
+
     ViewPager viewPager;
     ArrayList<String> ansList=new ArrayList<>();
 
@@ -51,6 +53,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         cancel=findViewById(R.id.cancel_btn);
         remove=findViewById(R.id.remove_btn);
         viewPager=findViewById(R.id.viewpage);
+        index=getIntent().getIntExtra("index",0);
 
         for(int i=0;i< bt.length;i++)
         {
@@ -60,7 +63,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
 
         String[] images = new String[0];
         try {
-            images = getAssets().list("pre_logo");
+            images = getAssets().list("pre_logo/level1");
             imgList = new ArrayList<String>(Arrays.asList(images));
             for (int i=0;i<imgList.size();i++)
             {
@@ -72,7 +75,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         }
         quiz_adapter=new Quiz_Adapter(this,imgList);
         viewPager.setAdapter(quiz_adapter);
-         create(p);
+        create(index);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -123,7 +126,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         arrayList.clear();
         linearLayout.removeAllViews();
         imageView=findViewById(R.id.logo_img);
-
+        viewPager.setCurrentItem(position);
 
         ans_arr=imgList.get(pos).split("\\."); //puma.png
         ans=ans_arr[0]; // puma

@@ -38,7 +38,7 @@ public class Logo_Adapter extends RecyclerView.Adapter<Logo_Adapter.View_holder>
         InputStream inputstream = null;
         try
         {
-            inputstream = context.getAssets().open("pre_logo/"+imgList.get(pos));
+            inputstream = context.getAssets().open("pre_logo/level1/"+imgList.get(pos));
             System.out.println("No of Images="+imgList.size());
             System.out.println("imgList Position="+imgList.get(position));
         }
@@ -52,6 +52,7 @@ public class Logo_Adapter extends RecyclerView.Adapter<Logo_Adapter.View_holder>
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,Quiz_Activity.class);
+                intent.putExtra("index",pos);
                 context.startActivity(intent);
             }
         });
