@@ -43,7 +43,9 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
     ViewPager viewPager;
     ArrayList<String> ansList=new ArrayList<>();
 
+
     int id;
+    private int levelNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,12 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         cancel=findViewById(R.id.cancel_btn);
         remove=findViewById(R.id.remove_btn);
         viewPager=findViewById(R.id.viewpage);
+
+        preferences=getSharedPreferences("myPref",MODE_PRIVATE);
+        editor=preferences.edit();
+
         index=getIntent().getIntExtra("index",0);
+        levelNo=getIntent().getIntExtra("levelNo",0);
 
         for(int i=0;i< bt.length;i++)
         {
@@ -62,20 +69,28 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         }
 
         String[] images = new String[0];
-        try {
-            images = getAssets().list("pre_logo/level1");
-            imgList = new ArrayList<String>(Arrays.asList(images));
-            for (int i=0;i<imgList.size();i++)
-            {
-                System.out.println("images="+imgList.get(i));
-            }
+        if(levelNo==1) {
+            try {
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                images = getAssets().list("pre_logo/level1");
+                imgList = new ArrayList<String>(Arrays.asList(images));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-        quiz_adapter=new Quiz_Adapter(this,imgList);
+        if(levelNo==2) {
+            try {
+
+                images = getAssets().list("pre_logo/level2");
+                imgList = new ArrayList<String>(Arrays.asList(images));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        quiz_adapter=new Quiz_Adapter(this,imgList,levelNo);
         viewPager.setAdapter(quiz_adapter);
-        create(index);
+        create(index-1);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -128,7 +143,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         imageView=findViewById(R.id.logo_img);
         viewPager.setCurrentItem(position);
 
-        ans_arr=imgList.get(pos).split("\\."); //puma.png
+        ans_arr=imgList.get(position).split("\\."); //puma.png
         ans=ans_arr[0]; // puma
         ans_btn=new Button[ans.length()];
         ans_charr=ans.toCharArray();
@@ -183,16 +198,21 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
                 }
             }
         }
-        String ans=String.valueOf(ans_btn);
-        preferences=getSharedPreferences("myPref",MODE_PRIVATE);
-        editor=preferences.edit();
-        if (ans.equals(ans)) {
+
+        String result=String.valueOf(ans_btn);
+        if (result.equals(ans)) {
+            editor.putInt("pos",pos);
             editor.putString("matched"+pos,"true");
             editor.commit();
+            Intent intent=new Intent(Quiz_Activity.this,win_activity.class);
+            intent.putExtra("pos",pos);
+            intent.putExtra("ans",ans);
+            startActivity(intent);
 
         }
-        else if(!ans.equals(ans))
+        else if(!result.equals(ans))
         {
+            editor.putInt("pos",pos);
             editor.putString("matched"+pos,"false");
             editor.commit();
 

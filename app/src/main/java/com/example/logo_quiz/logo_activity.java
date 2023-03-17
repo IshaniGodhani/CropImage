@@ -33,11 +33,12 @@ public class logo_activity extends AppCompatActivity {
         recyclerView=findViewById(R.id.gridview);
         levelnum=findViewById(R.id.levelnum);
         pos=getIntent().getIntExtra("pos",0);
-        levels=getIntent().getStringArrayExtra("Levels");
-        levelnum.setText(levels[pos]);
+        System.out.println("Pos="+pos);
+
+//        levelnum.setText(levels[pos]);
 
         String[] images = new String[0];
-        if (pos==0)
+        if (pos==1)
         {
             try {
                 images = getAssets().list("pre_logo/level1");
@@ -56,7 +57,7 @@ public class logo_activity extends AppCompatActivity {
             }
         }
 
-        logo_adapter=new Logo_Adapter(this,imgList);
+        logo_adapter=new Logo_Adapter(this,imgList,pos);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(logo_activity.this,3);
         gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);

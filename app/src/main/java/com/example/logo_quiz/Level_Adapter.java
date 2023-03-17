@@ -35,7 +35,8 @@ public class Level_Adapter extends RecyclerView.Adapter<Level_Adapter.View_HOlde
         holder.level.setText(levels[position]);
         holder.level.setOnClickListener(v -> {
             Intent intent=new Intent(activity,logo_activity.class);
-            intent.putExtra("Levels",levels);
+            intent.putExtra("pos",(holder.getAdapterPosition()+1));
+            System.out.println("Position="+(holder.getAdapterPosition()+1));
             activity.startActivity(intent);
         });
 

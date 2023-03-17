@@ -1,12 +1,12 @@
 package com.example.logo_quiz;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -16,31 +16,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class Quiz_Adapter extends PagerAdapter {
+public class Win_Adapter extends PagerAdapter {
+    Activity activity;
     ArrayList<String> imgList;
     ImageView imageView;
-    Context context;
-    Button[] button = new Button[16];
-    String[] ansarr;
-    String ans;
-    char ans_charr[];
-    ArrayList arrayList = new ArrayList<>();
-    int pos=0;
-    int levelNo;
-
+    int pos;
     SharedPreferences sharedPreferences;
-
-    public Quiz_Adapter(Context context, ArrayList<String> imgList, int levelNo) {
-        this.context = context;
-        this.imgList = imgList;
-        this.levelNo=levelNo;
-        sharedPreferences = context.getSharedPreferences("myPref", Context.MODE_PRIVATE);
-        for(int i=0;i<imgList.size();i++)
-        {
-            System.out.println("Images="+imgList.get(i));
-        }
+    public Win_Adapter(Activity activity, ArrayList<String> imgList, int pos) {
+        this.activity=activity;
+        this.imgList=imgList;
+        this.pos=pos;
+        sharedPreferences = activity.getSharedPreferences("myPref", Context.MODE_PRIVATE);
     }
-
 
     @Override
     public int getCount() {
@@ -49,39 +36,37 @@ public class Quiz_Adapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+        return view==object;
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(context).inflate(R.layout.logo_imgitem, container, false);
-        imageView = view.findViewById(R.id.logo_img);
-
-        int pos=position;
+        View view = LayoutInflater.from(activity).inflate(R.layout.win_item, container, false);
+        int pos=sharedPreferences.getInt("pos",0);
+        String str=sharedPreferences.getString("matched"+position,"false");
+        imageView=view.findViewById(R.id.win_img);
         InputStream inputstream = null;
 
-        if(levelNo==1)
+        if(pos==1)
         {
             try {
-                inputstream = context.getAssets().open("pre_logo/level1/" + imgList.get(pos));
+                inputstream = activity.getAssets().open("post_logo/level1/" + imgList.get(pos));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         }
-        if(levelNo==2)
+        if(pos==2)
         {
             try {
-                inputstream = context.getAssets().open("pre_logo/level2/" + imgList.get(pos));
+                inputstream = activity.getAssets().open("post_logo/level2/" + imgList.get(pos));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         }
         Drawable drawable = Drawable.createFromStream(inputstream, null);
         imageView.setImageDrawable(drawable);
-
-            container.addView(view);
-
+        container.addView(view);
         return view;
     }
 

@@ -18,10 +18,12 @@ import java.util.List;
 public class Logo_Adapter extends RecyclerView.Adapter<Logo_Adapter.View_holder> {
     Context context;
     List<String> imgList;
+    int pos;
 
-    public Logo_Adapter(Context context, List<String> imgList) {
+    public Logo_Adapter(Context context, List<String> imgList, int pos) {
         this.context=context;
         this.imgList=imgList;
+        this.pos = pos;
     }
 
     @NonNull
@@ -34,17 +36,33 @@ public class Logo_Adapter extends RecyclerView.Adapter<Logo_Adapter.View_holder>
 
     @Override
     public void onBindViewHolder(@NonNull View_holder holder, int position) {
-        int pos=position;
+        //int pos=position;
         InputStream inputstream = null;
-        try
+        if(pos==1)
         {
-            inputstream = context.getAssets().open("pre_logo/level1/"+imgList.get(pos));
-            System.out.println("No of Images="+imgList.size());
-            System.out.println("imgList Position="+imgList.get(position));
+            try
+            {
+                inputstream = context.getAssets().open("pre_logo/level1/"+imgList.get(position));
+//                System.out.println("No of Images="+imgList.size());
+//                System.out.println("imgList Position="+imgList.get(position));
+            }
+            catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
-        catch (IOException e)
+        if(pos==2)
         {
-            throw new RuntimeException(e);
+            try
+            {
+                inputstream = context.getAssets().open("pre_logo/level2/"+imgList.get(position));
+//                System.out.println("No of Images="+imgList.size());
+//                System.out.println("imgList Position="+imgList.get(position));
+            }
+            catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
         Drawable drawable = Drawable.createFromStream(inputstream, null);
         holder.logo.setImageDrawable(drawable);
@@ -52,7 +70,9 @@ public class Logo_Adapter extends RecyclerView.Adapter<Logo_Adapter.View_holder>
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,Quiz_Activity.class);
-                intent.putExtra("index",pos);
+                intent.putExtra("index",(holder.getAdapterPosition()+1));
+                intent.putExtra("levelNo",pos);
+
                 context.startActivity(intent);
             }
         });
