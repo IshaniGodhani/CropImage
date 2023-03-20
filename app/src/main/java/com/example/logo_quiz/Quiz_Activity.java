@@ -22,11 +22,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Quiz_Activity extends AppCompatActivity implements View.OnClickListener {
-    ImageView imageView,cancel,remove,back,next;
+    ImageView imageView,cancel,remove;
     int pos=0;
     Button[] ans_btn;
     Button[] bt=new Button[14];
-    Button btn0,btn1,btn2;
+    Button submit;
     int index;
     String temp,temp1;
     ArrayList arrayList=new ArrayList();
@@ -54,6 +54,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         linearLayout=findViewById(R.id.linear);
         cancel=findViewById(R.id.cancel_btn);
         remove=findViewById(R.id.remove_btn);
+        submit=findViewById(R.id.submit);
         viewPager=findViewById(R.id.viewpage);
 
         preferences=getSharedPreferences("myPref",MODE_PRIVATE);
@@ -173,7 +174,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
             ans_btn[i].setBackgroundColor(getResources().getColor(R.color.black));
             linearLayout.addView(ans_btn[i]);
         }
-
+    submit.setOnClickListener(this);
 
     }
 
@@ -199,23 +200,23 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        String result=String.valueOf(ans_btn);
-        if (result.equals(ans)) {
-            editor.putInt("pos",pos);
-            editor.putString("matched"+pos,"true");
-            editor.commit();
-            Intent intent=new Intent(Quiz_Activity.this,win_activity.class);
-            intent.putExtra("pos",pos);
-            intent.putExtra("ans",ans);
-            startActivity(intent);
-
-        }
-        else if(!result.equals(ans))
+        if(submit.getId()==view.getId())
         {
-            editor.putInt("pos",pos);
-            editor.putString("matched"+pos,"false");
-            editor.commit();
-
+            String result= String.valueOf(ans_btn);
+            if(result.equals(ans)) {
+                editor.putInt("image", pos);
+                editor.putString("matched" + pos, "win");
+                editor.commit();
+                index++;
+                Intent intent = new Intent(Quiz_Activity.this, win_activity.class);
+                intent.putExtra("image", pos);
+                intent.putExtra("ans",ans);
+                startActivity(intent);
+            } else if (!result.equals(ans)) {
+                editor.putInt("image", pos);
+                editor.putString("matched" + pos, "loose");
+                editor.commit();
+            }
         }
 
     }

@@ -102,14 +102,25 @@
             android:layout_gravity="center"
             android:id="@+id/cancel_btn"
             android:src="@drawable/cancel"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="10dp"/>
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:src="@drawable/remove"
             android:id="@+id/remove_btn"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="10dp"/>
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:textSize="12dp"
+            android:background="@drawable/corners"
+            android:layout_marginStart="10dp"
+            android:text="ok"
+            android:textColor="@color/white"
+            android:id="@+id/submit"
+            app:backgroundTint="#DD2D2D"/>
 
     </LinearLayout>
 

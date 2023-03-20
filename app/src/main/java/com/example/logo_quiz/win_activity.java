@@ -17,7 +17,7 @@ public class win_activity extends AppCompatActivity {
     TextView textView;
     Button btn;
     ViewPager viewPager;
-    int pos;
+    int index;
     String ans;
     Win_Adapter win_adapter;
     ArrayList<String> imgList=new ArrayList<>();
@@ -29,11 +29,11 @@ public class win_activity extends AppCompatActivity {
         viewPager=findViewById(R.id.win_viewpage);
         btn=findViewById(R.id.next);
         textView=findViewById(R.id.ans);
-        pos=getIntent().getIntExtra("pos",0);
+        index=getIntent().getIntExtra("image",0);
         ans=getIntent().getStringExtra("ans");
         textView.setText(ans);
         String[] images = new String[0];
-        if(pos==0)
+        if(index==0)
         {
             try {
                 images = getAssets().list("post_logo/level1");
@@ -42,7 +42,7 @@ public class win_activity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
-        if(pos==1)
+        if(index==1)
         {
             try {
                 images = getAssets().list("post_logo/level2");
@@ -51,7 +51,7 @@ public class win_activity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
-        win_adapter=new Win_Adapter(this,imgList,pos);
+        win_adapter=new Win_Adapter(this,imgList,index);
         viewPager.setAdapter(win_adapter);
 
         btn.setOnClickListener(new View.OnClickListener() {
