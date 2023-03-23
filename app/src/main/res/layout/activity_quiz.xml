@@ -95,7 +95,7 @@
             android:id="@+id/logo_hints"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="10dp"/>
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"

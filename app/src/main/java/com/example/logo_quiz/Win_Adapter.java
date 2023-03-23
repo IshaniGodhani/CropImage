@@ -21,11 +21,13 @@ public class Win_Adapter extends PagerAdapter {
     ArrayList<String> imgList;
     ImageView imageView;
     int pos;
+    int lelvelno;
     SharedPreferences sharedPreferences;
-    public Win_Adapter(Activity activity, ArrayList<String> imgList, int pos) {
+    public Win_Adapter(Activity activity, ArrayList<String> imgList, int levelno, int pos) {
         this.activity=activity;
         this.imgList=imgList;
         this.pos=pos;
+        this.lelvelno=levelno;
         sharedPreferences = activity.getSharedPreferences("myPref", Context.MODE_PRIVATE);
     }
 
@@ -43,27 +45,34 @@ public class Win_Adapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(activity).inflate(R.layout.win_item, container, false);
-        int pos=sharedPreferences.getInt("pos",0);
-        String str=sharedPreferences.getString("matched"+position,"false");
+        int index=sharedPreferences.getInt("image",0);
+        String str=sharedPreferences.getString("matched"+index,"true");
         imageView=view.findViewById(R.id.win_img);
         InputStream inputstream = null;
 
-        if(pos==1)
-        {
-            try {
-                inputstream = activity.getAssets().open("post_logo/level1/" + imgList.get(pos));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+        System.out.println("Position");
+        if(lelvelno==1) {
+
+                try {
+                    inputstream = activity.getAssets().open("post_logo/level1/" + imgList.get(pos));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-        }
-        if(pos==2)
-        {
-            try {
-                inputstream = activity.getAssets().open("post_logo/level2/" + imgList.get(pos));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+
+            if(lelvelno==2) {
+
+                try {
+                    inputstream = activity.getAssets().open("post_logo/level2/" + imgList.get(pos));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-        }
+
+
+
+
+
         Drawable drawable = Drawable.createFromStream(inputstream, null);
         imageView.setImageDrawable(drawable);
         container.addView(view);

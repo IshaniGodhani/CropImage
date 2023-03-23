@@ -3,6 +3,7 @@ package com.example.logo_quiz;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -32,7 +33,9 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
     ArrayList arrayList=new ArrayList();
     LinearLayout linearLayout;
     String[] ans_arr;
+    int s;
     String ans;
+    String answer;
     char[] ans_charr;
     int p=0;
     ArrayList<String> imgList=new ArrayList<>();
@@ -61,6 +64,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         editor=preferences.edit();
 
         index=getIntent().getIntExtra("index",0);
+        s=getIntent().getIntExtra("s",0);
         levelNo=getIntent().getIntExtra("levelNo",0);
 
         for(int i=0;i< bt.length;i++)
@@ -91,7 +95,13 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
 
         quiz_adapter=new Quiz_Adapter(this,imgList,levelNo);
         viewPager.setAdapter(quiz_adapter);
-        create(index-1);
+        if(getIntent().getIntExtra("index",0)==index) {
+            create(index-1);
+        }
+        if(getIntent().getIntExtra("s",0)==s)
+        {
+            create(s);
+        }
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -136,6 +146,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
 
 
     }
+    @SuppressLint("ResourceAsColor")
     private void create(int position)
     {
         pos=position;
@@ -145,7 +156,8 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         viewPager.setCurrentItem(position);
 
         ans_arr=imgList.get(position).split("\\."); //puma.png
-        ans=ans_arr[0]; // puma
+        ans=ans_arr[0];// puma
+//        answer=ans;
         ans_btn=new Button[ans.length()];
         ans_charr=ans.toCharArray();
 
@@ -171,6 +183,7 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 150, 1);
             layoutParams.setMargins(5, 5, 5, 5);
             ans_btn[i].setLayoutParams(layoutParams);
+            ans_btn[i].setTextColor(android.R.color.white);
             ans_btn[i].setBackgroundColor(getResources().getColor(R.color.black));
             linearLayout.addView(ans_btn[i]);
         }
@@ -203,20 +216,26 @@ public class Quiz_Activity extends AppCompatActivity implements View.OnClickList
         if(submit.getId()==view.getId())
         {
             String result= String.valueOf(ans_btn);
-            if(result.equals(ans)) {
-                editor.putInt("image", pos);
-                editor.putString("matched" + pos, "win");
-                editor.commit();
-                index++;
-                Intent intent = new Intent(Quiz_Activity.this, win_activity.class);
-                intent.putExtra("image", pos);
-                intent.putExtra("ans",ans);
-                startActivity(intent);
-            } else if (!result.equals(ans)) {
-                editor.putInt("image", pos);
-                editor.putString("matched" + pos, "loose");
-                editor.commit();
-            }
+            Intent intent = new Intent(Quiz_Activity.this, win_activity.class);
+            intent.putExtra("ans",ans);
+            intent.putExtra("levelno",levelNo);
+            intent.putExtra("pos",pos);
+            startActivity(intent);
+
+
+//            if(result.equals(ans)) {
+//
+//
+////                editor.putInt("image",pos);
+////                editor.putString("matched" + pos, "true");
+////                editor.commit();
+//
+//            } else if (!result.equals(ans)) {
+//                editor.putInt("image", pos);
+//                editor.putString("matched" + pos, "false");
+//                editor.commit();
+//
+//            }
         }
 
     }
