@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
    ViewPager viewPager;
    AppBarLayout appBarLayout;
    TabLayout tabLayout;
-   Pager_Adapter pager_adapter;
+   Pager_Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager=findViewById(R.id.view_pager);
         tabLayout=findViewById(R.id.tabs);
-        pager_adapter=new Pager_Adapter(this,getSupportFragmentManager());
+        adapter=new Pager_Adapter(this,getSupportFragmentManager());
+
+        adapter.addFragment(new fragment_one(),"Info");
+        adapter.addFragment(new fragment_two(),"Live");
+        adapter.addFragment(new fragment_three(),"scoreCards");
+        adapter.addFragment(new fragment_four(),"Squads");
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
 
 
 

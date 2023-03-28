@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".fragment_one">
 
 
@@ -62,6 +63,121 @@
         android:layout_marginTop="160dp"
         android:layout_marginStart="150dp"
         android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="20dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#ACA4A4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mon,Mar 27"
+        android:textSize="20dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginStart="150dp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="260dp"
+        android:text="Time"
+        android:textColor="#ACA4A4"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="09:30 PM,Your Time"
+        android:textSize="20dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginStart="150dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toss"
+        android:textSize="20dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#ACA4A4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Afghanistan opt to bowl"
+        android:textSize="20dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginStart="150dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="venue"
+        android:textSize="20dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#ACA4A4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sharjah Cricket Stadium,Sharjah"
+        android:textSize="20dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginStart="150dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Umpires"
+        android:textSize="20dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#ACA4A4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ahmed shah Pakteen,Bismillah jan shinvari"
+        android:textSize="20dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginStart="150dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3rd Umpires"
+        android:textSize="20dp"
+        android:layout_marginTop="480dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#ACA4A4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Akbar Ali"
+        android:textSize="20dp"
+        android:layout_marginTop="480dp"
+        android:layout_marginStart="150dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Refree"
+        android:textSize="20dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#ACA4A4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hamin Khan"
+        android:textSize="20dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginStart="150dp"
+        android:textColor="@color/black"/>
+
 
 
 </FrameLayout>
