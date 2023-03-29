@@ -6,9 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class fragment_four extends Fragment {
+    String[] name={"Littonn das(wk)","Stirling","Shakib(c)","Tucker(wk)","Rony Taludkar","Ross adair",
+    "Sahnto","Harry Tactor","shamin Hosain","Dockrail","Towhid hridoy","Delany","Mehdy Hasan Miraz",
+    "Curtis campher","Nasum Ahmed","Mark Adair","Taskin Ahmed","craig Young","Mustafijur","Hume",
+    "Hasan Mahmud","Benjamin White","Shoriful Islam","Matthew Humphreys","Rishad Hossain","Fionn Hand",
+    "Jaker Ali","Thomas Mayes"};
+    RecyclerView recyclerView;
+    RecyclerAdapter recyclerAdapter;
 
 
 
@@ -34,6 +43,13 @@ public class fragment_four extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_four, container, false);
+        View view= inflater.inflate(R.layout.fragment_four, container, false);
+        recyclerView=view.findViewById(R.id.recyclerview);
+        recyclerAdapter=new RecyclerAdapter(this,name);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),2);
+        gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(recyclerAdapter);
+        return view;
     }
 }
