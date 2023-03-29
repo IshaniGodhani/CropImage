@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,12 @@ import java.util.List;
 public class Pager_Adapter extends FragmentPagerAdapter {
     List<Fragment> fragmentList=new ArrayList<>();
     List<String> titlelist=new ArrayList<>();
+    ViewPager viewPager;
 
-    public Pager_Adapter(MainActivity mainActivity, @NonNull FragmentManager fm) {
+
+    public Pager_Adapter(MainActivity mainActivity, @NonNull FragmentManager fm, ViewPager viewPager) {
         super(fm);
+        this.viewPager=viewPager;
     }
 
     @NonNull
@@ -37,5 +41,6 @@ public class Pager_Adapter extends FragmentPagerAdapter {
     public void addFragment(Fragment fragment, String title) {
         fragmentList.add(fragment);
         titlelist.add(title);
+
     }
 }

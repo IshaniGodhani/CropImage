@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
    ViewPager viewPager;
    AppBarLayout appBarLayout;
    TabLayout tabLayout;
-   Pager_Adapter adapter;
+   public static Pager_Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager=findViewById(R.id.view_pager);
         tabLayout=findViewById(R.id.tabs);
-        adapter=new Pager_Adapter(this,getSupportFragmentManager());
+        adapter=new Pager_Adapter(this,getSupportFragmentManager(),viewPager);
 
-        adapter.addFragment(new fragment_one(),"Info");
+        adapter.addFragment(new fragment_one(viewPager),"Info");
         adapter.addFragment(new fragment_two(),"Live");
         adapter.addFragment(new fragment_three(),"scoreCards");
         adapter.addFragment(new fragment_four(),"Squads");

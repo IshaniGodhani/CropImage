@@ -4,8 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +15,18 @@ import android.widget.ImageView;
 public class fragment_one extends Fragment {
 
     ImageView imageView;
+    Pager_Adapter adapter;
+    ViewPager pager;
 
-    public fragment_one() {
-
+    public fragment_one(ViewPager pager) {
+        this.pager=pager;
     }
 
-    public static fragment_one newInstance(String param1, String param2) {
-        fragment_one fragment = new fragment_one();
-        return fragment;
-    }
+//    public fragment_one newInstance(String param1, String param2) {
+//        fragment_one fragment = new fragment_one(ViewPager pager);
+//
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,16 +46,9 @@ public class fragment_one extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addFragment(new fragment_four());
+             pager.setCurrentItem(4);
             }
 
-            private void addFragment(fragment_four fragment_four) {
-                FragmentManager manager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                FragmentTransaction replace = transaction.replace(R.id.tabs,fragment_four);
-                transaction.commit();
-
-            }
         });
 
         return view;
