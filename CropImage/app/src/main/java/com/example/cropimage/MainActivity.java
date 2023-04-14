@@ -7,6 +7,7 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     Button add;
 
+
     String per[]={Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imageView=findViewById(R.id.imageview);
         add=findViewById(R.id.add);
+
 
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "pickImageResult.jpeg");
+          //  File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "pickImageResult.jpeg");
 
 //           Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", file);
 //            if (uri != null) {
