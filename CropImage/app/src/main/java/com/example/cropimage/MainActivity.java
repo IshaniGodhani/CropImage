@@ -2,21 +2,30 @@ package com.example.cropimage;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.theartofdev.edmodo.cropper.BuildConfig;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
-    Button cambtn,gallarybtn;
-    String[] per = {};
+    Button add;
+
+    String per[]={Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -24,20 +33,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageView=findViewById(R.id.imageview);
-        cambtn=findViewById(R.id.cambtn);
-        gallarybtn=findViewById(R.id.gallarybtn);
-        cambtn.setOnClickListener(new View.OnClickListener() {
+        add=findViewById(R.id.add);
+
+
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(MainActivity.this);
 
             }
         });
-        gallarybtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
     }
 
@@ -49,9 +57,23 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 imageView.setImageURI(resultUri);
+                add.setVisibility(View.GONE);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
+
+
+            File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "pickImageResult.jpeg");
+
+//           Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", file);
+//            if (uri != null) {
+//                CropImage.activity(uri)
+//                        .setGuidelines(CropImageView.Guidelines.ON)
+//                        .start(this);
+//            }
         }
+
+
+        }
+
     }
-}

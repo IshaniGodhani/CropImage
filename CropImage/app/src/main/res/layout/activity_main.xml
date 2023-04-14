@@ -15,22 +15,22 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_round"
         android:layout_gravity="center"/>
+<!--    <Button-->
+<!--        android:id="@+id/cambtn"-->
+<!--        android:layout_width="110dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:text="Camera"-->
+<!--        android:background="@color/black"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="15dp"/>-->
     <Button
-        android:id="@+id/cambtn"
+        android:id="@+id/add"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Camera"
-        android:background="@color/black"
-        app:backgroundTint="@null"
-        android:textColor="@color/white"
-        android:textSize="15dp"/>
-    <Button
-        android:id="@+id/gallarybtn"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Gallary"
+        android:text="Add"
         android:background="@color/black"
         app:backgroundTint="@null"
         android:textColor="@color/white"
